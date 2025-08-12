@@ -19,6 +19,11 @@ if [ -n "${CODER_TEMPLATE_MESSAGE}" ]; then
   push_command+=" --message \"${CODER_TEMPLATE_MESSAGE}\""
 fi
 
+# Add provisioner tag to the push command if specified
+if [ -n "${CODER_PROVISIONER_TAG}" ]; then
+  push_command+=" --provisioner-tag=\"${CODER_PROVISIONER_TAG}\""
+fi
+
 # Add organization to the push command if specified
 if [ -n "${CODER_TEMPLATE_ORGANIZATION}" ]; then
   push_command+=" --org \"${CODER_TEMPLATE_ORGANIZATION}\""
@@ -32,6 +37,10 @@ fi
 # Add activate flag to the push command if it is false
 if [ "${CODER_TEMPLATE_ACTIVATE}" = "false" ]; then
   push_command+=" --activate=false"
+fi
+
+if [ "${CODER_IGNORE_LOCKFILE}" = "true" ]; then
+  push_command+=" --ignore-lockfile=true"
 fi
 
 # Add confirmation flag to the push command
